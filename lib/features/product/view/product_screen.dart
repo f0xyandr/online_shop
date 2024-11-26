@@ -16,27 +16,35 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     final future = Supabase.instance.client.from('products').select();
     return Scaffold(
-        body: FutureBuilder(
-            future: future,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              final products = snapshot.data!;
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 300,
-                    mainAxisSpacing: 30,
-                    crossAxisSpacing: 30),
-                itemCount: products.length,
-                itemBuilder: ((context, index) {
-                  final productItem = products[index];
-                  return ListTile(
-                    title: Center(child: Text(productItem['name'])),
-                    tileColor: Colors.white,
-                  );
-                }),
-              );
-            }));
+        body: Center(
+      child: FutureBuilder(
+          future: future,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final products = snapshot.data!;
+            return Text("$products");
+            // return GridView.builder(
+            //   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            //       maxCrossAxisExtent: 300,
+            //       mainAxisSpacing: 30,
+            //       crossAxisSpacing: 30),
+            //   itemCount: products.length,
+            //   itemBuilder: ((context, index) {
+            //     final productItem = products[index];
+            //     return ListTile(
+            //       title: Center(
+            //           child: Column(
+            //         children: [
+            //           Text(productItem['name']),
+            //         ],
+            //       )),
+            //       tileColor: Colors.white,
+            //     );
+            //   }),
+            // );
+          }),
+    ));
   }
 }

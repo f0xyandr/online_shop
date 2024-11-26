@@ -1,6 +1,7 @@
 import 'package:crypto_coins_list/crypto_coins_list_app.dart';
 import 'package:crypto_coins_list/firebase_options.dart';
 import 'package:crypto_coins_list/repositories/crypto_coins/crypto_coins.dart';
+import 'package:crypto_coins_list/repositories/products/products_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,10 @@ void main() async {
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByZ2JnYmhnd3B6bHZ0ZnZnZ3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1MjEyMzcsImV4cCI6MjA0ODA5NzIzN30.PAd4rAFyEGeSLpuRTcMOyTnYZqtmLA4SHoIi2uvOBns',
   );
+  GetIt.I.registerLazySingleton<ProductsRepository>(
+    () => ProductsRepository(supabase: supabase),
+  );
+
   final dio = Dio();
   dio.interceptors.add(TalkerDioLogger(
       talker: talker,
