@@ -1,2 +1,2 @@
 export 'crypto_coin.dart';
-export 'product.dart';
+export '../../products/models/product.dart';

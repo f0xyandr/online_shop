@@ -1,5 +1,6 @@
-import 'package:crypto_coins_list/repositories/crypto_coins/models/product.dart';
+import 'package:crypto_coins_list/repositories/products/models/product.dart';
 import 'package:crypto_coins_list/repositories/products/abstract_products_repository.dart';
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProductsRepository implements AbstractProductsRepository {
@@ -8,16 +9,18 @@ class ProductsRepository implements AbstractProductsRepository {
   ProductsRepository({required this.supabase});
   @override
   Future<List<Product>> getProductList() async {
-    List<Product> productList = [];
     final listFromSupabase =
         await Supabase.instance.client.from("products").select();
-    listFromSupabase.map((e) {
-      int id = e['id'];
-      String name = e['name'];
-      int price = e['price'];
-      // String created_at = e['created_at'];
+    List<Product> productList = [];
+    for (Map<String, dynamic> productMap in listFromSupabase) {
+      String name = productMap['name'];
+      int price = productMap['price'];
+      int id = productMap['id'];
       productList.add(Product(name: name, price: price, id: id));
-    });
+    }
+
+    debugPrint("$listFromSupabase");
+    debugPrint("$productList");
     return productList;
   }
 }
