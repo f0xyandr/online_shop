@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 final darkTheme = ThemeData(
-  scaffoldBackgroundColor: const Color.fromARGB(255, 31, 31, 31),
+  scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
   primarySwatch: Colors.yellow,
   dividerColor: Colors.white24,
   appBarTheme: const AppBarTheme(
     iconTheme: IconThemeData(color: Colors.white),
     elevation: 0,
-    backgroundColor: Color.fromARGB(255, 31, 31, 31),
+    backgroundColor: Color.fromARGB(255, 255, 255, 255),
     titleTextStyle: TextStyle(
       color: Colors.white,
       fontSize: 20,
@@ -17,22 +17,22 @@ final darkTheme = ThemeData(
   listTileTheme: const ListTileThemeData(
     iconColor: Colors.white,
   ),
-  textTheme: TextTheme(
-    bodyMedium: const TextStyle(
-      color: Colors.white,
+  textTheme: const TextTheme(
+    bodyMedium: TextStyle(
+      color: Color.fromARGB(255, 73, 73, 73),
       fontWeight: FontWeight.w500,
       fontSize: 20,
     ),
     labelSmall: TextStyle(
-      color: Colors.white.withOpacity(0.6),
+      color: Color.fromARGB(255, 73, 73, 73),
       fontWeight: FontWeight.w700,
       fontSize: 14,
     ),
     labelMedium: TextStyle(
-      color: Colors.white.withOpacity(0.6),
+      color: Color.fromARGB(255, 73, 73, 73),
     ),
-    headlineMedium: const TextStyle(
-      color: Colors.white,
+    headlineMedium: TextStyle(
+      color: Color.fromARGB(255, 73, 73, 73),
       fontWeight: FontWeight.w500,
       fontSize: 24,
     ),

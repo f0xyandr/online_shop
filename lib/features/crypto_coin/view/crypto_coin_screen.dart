@@ -56,7 +56,7 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
                   children: [
                     TextButton(
                         onPressed: () {
-                          AutoRouter.of(context).push(ProductRoute());
+                          AutoRouter.of(context).push(const ProductRoute());
                         },
                         child: const Text("transition")),
                     Padding(

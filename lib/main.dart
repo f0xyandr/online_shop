@@ -15,7 +15,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'repositories/crypto_coins/models/crypto_coin_details.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final talker = TalkerFlutter.init();
   GetIt.I.registerSingleton(talker);
@@ -27,11 +27,13 @@ void main() async {
   final cryptoCoinsBox = await Hive.openBox<CryptoCoin>("crypto_coins_box");
 
   WidgetsFlutterBinding.ensureInitialized();
-  final supabase = await Supabase.initialize(
+  await Supabase.initialize(
     url: 'https://prgbgbhgwpzlvtfvggsj.supabase.co',
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByZ2JnYmhnd3B6bHZ0ZnZnZ3NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI1MjEyMzcsImV4cCI6MjA0ODA5NzIzN30.PAd4rAFyEGeSLpuRTcMOyTnYZqtmLA4SHoIi2uvOBns',
   );
+  final supabase = Supabase.instance.client;
+  GetIt.I.registerSingleton(supabase);
   GetIt.I.registerLazySingleton<ProductsRepository>(
     () => ProductsRepository(supabase: supabase),
   );

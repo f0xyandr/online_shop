@@ -1,35 +1,3 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-// **************************************************************************
-// AutoRouterGenerator
-// **************************************************************************
-
-// ignore_for_file: type=lint
-// coverage:ignore-file
-
-part of 'router.dart';
-
-/// generated route for
-/// [AuthScreen]
-class AuthRoute extends PageRouteInfo<void> {
-  const AuthRoute({List<PageRouteInfo>? children})
-      : super(
-          AuthRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'AuthRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const AuthScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [CryptoCoinScreen]
 class CryptoCoinRoute extends PageRouteInfo<CryptoCoinRouteArgs> {
   CryptoCoinRoute({
     Key? key,
@@ -108,25 +76,6 @@ class ProductRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ProductScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [RegistrationScreen]
-class RegistrationRoute extends PageRouteInfo<void> {
-  const RegistrationRoute({List<PageRouteInfo>? children})
-      : super(
-          RegistrationRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'RegistrationRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const RegistrationScreen();
     },
   );
 }

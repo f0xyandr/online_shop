@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProductsRepository implements AbstractProductsRepository {
-  final Supabase supabase;
+  final SupabaseClient supabase;
 
   ProductsRepository({required this.supabase});
   @override

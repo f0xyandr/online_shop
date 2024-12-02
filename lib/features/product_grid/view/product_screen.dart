@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:crypto_coins_list/features/product/bloc/product_bloc.dart';
+import 'package:crypto_coins_list/features/product_grid/bloc/product_bloc.dart';
+import 'package:crypto_coins_list/features/product_grid/widgets/product_tile.dart';
 import 'package:crypto_coins_list/repositories/products/products_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -39,17 +40,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   itemCount: state.productList.length,
                   itemBuilder: ((context, index) {
                     final productItem = state.productList[index];
-                    return ListTile(
-                      title: Center(
-                          child: Column(
-                        children: [
-                          Text(productItem.name),
-                          Text(productItem.id.toString()),
-                          Text(productItem.price.toString()),
-                        ],
-                      )),
-                      tileColor: Colors.white,
-                    );
+                    return ProductTile(product: productItem);
                   }),
                 );
               }
