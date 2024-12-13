@@ -55,10 +55,7 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
                 body: Column(
                   children: [
                     TextButton(
-                        onPressed: () {
-                          AutoRouter.of(context).push(const ProductRoute());
-                        },
-                        child: const Text("transition")),
+                        onPressed: () {}, child: const Text("transition")),
                     Padding(
                         padding: const EdgeInsets.only(bottom: 20),
                         child: Column(

@@ -8,11 +8,11 @@ class CryptoCurrenciesListApp extends StatelessWidget {
   const CryptoCurrenciesListApp({super.key});
   @override
   Widget build(BuildContext context) {
-    final _appRouter = AppRouter();
+    final appRouter = AppRouter();
     return MaterialApp.router(
         title: 'CryptoCurrenciesList',
         theme: darkTheme,
-        routerConfig: _appRouter.config(
+        routerConfig: appRouter.config(
           navigatorObservers: () => [TalkerRouteObserver(GetIt.I<Talker>())],
         ));
   }

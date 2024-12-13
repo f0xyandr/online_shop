@@ -1,6 +1,6 @@
 part of 'product_bloc.dart';
 
-class ProductEvent {
+abstract class ProductEvent extends Equatable {
   const ProductEvent();
 
   @override
@@ -8,8 +8,9 @@ class ProductEvent {
 }
 
 class LoadProduct extends ProductEvent {
-  const LoadProduct();
+  const LoadProduct({required this.categoryId});
+  final int categoryId;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => super.props..add(categoryId);
 }

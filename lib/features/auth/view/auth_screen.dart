@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:crypto_coins_list/features/crypto_coin/bloc/crypto_coin_details_bloc.dart';
 import 'package:crypto_coins_list/router/router.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 @RoutePage()
@@ -43,7 +41,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     );
                     final Session? session = res.session;
                     final User? user = res.user;
-                    AutoRouter.of(context).push(const ProductRoute());
+                    AutoRouter.of(context).push(const ProductCategoriesRoute());
                   }
                 },
                 child: const Text("Войти")),
@@ -54,7 +52,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: const Text("Зарегистрироваться")),
             ElevatedButton(
                 onPressed: () async {
-                  AutoRouter.of(context).push(const ProductRoute());
+                  AutoRouter.of(context).push(const RegistrationRoute());
                 },
                 child: const Text("К гриду")),
             const Text("Экран аутентификации")

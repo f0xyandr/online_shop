@@ -1,5 +1,7 @@
-import '../crypto_coins/models/models.dart';
+import 'models/models.dart';
 
 abstract class AbstractProductsRepository {
-  Future<List<Product>> getProductList();
+  Future<List<Product>> getProductList(categoryId);
+  Future<void> getProductCard(productId);
+  Future<List<ProductCategory>> getProductCategoryList();
 }
