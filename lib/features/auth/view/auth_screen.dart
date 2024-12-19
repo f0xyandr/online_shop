@@ -12,8 +12,8 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  final email = TextEditingController();
-  final password = TextEditingController();
+  final email = TextEditingController(text: "admin@admin.com");
+  final password = TextEditingController(text: "admin");
   final supabase = Supabase.instance.client;
 
   @override
@@ -50,11 +50,6 @@ class _AuthScreenState extends State<AuthScreen> {
                   AutoRouter.of(context).push(const RegistrationRoute());
                 },
                 child: const Text("Зарегистрироваться")),
-            ElevatedButton(
-                onPressed: () async {
-                  AutoRouter.of(context).push(const RegistrationRoute());
-                },
-                child: const Text("К гриду")),
             const Text("Экран аутентификации")
           ],
         ),

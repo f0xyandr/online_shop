@@ -22,7 +22,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   void initState() {
-    _productBloc.add(LoadProduct(categoryId: 1));
+    _productBloc.add(LoadProduct(categoryId: widget.categoryId));
     super.initState();
   }
 

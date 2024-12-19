@@ -85,5 +85,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'crypto-list-app-002.firebasestorage.app',
     measurementId: 'G-F4NVTFM187',
   );
-
 }

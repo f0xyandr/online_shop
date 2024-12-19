@@ -1,58 +1,32 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, annotate_overrides
-
-import 'package:auto_route/auto_route.dart';
+import 'package:crypto_coins_list/features/cart/cart.dart';
+import 'package:crypto_coins_list/repositories/products/products_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
-import '../bloc/cart_bloc.dart';
+class CartScreen extends StatefulWidget {
+  CartScreen({super.key});
 
-@RoutePage(name: "CartScreen")
-class CartScreen extends StatelessWidget {
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  final _cartBloc = CartBloc(GetIt.I<ProductsRepository>());
+  @override
+  void initState() {
+    _cartBloc.add(LoadCartItems());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Shopping Cart App'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () => Navigator.pushNamed(context, '/checkout'),
-          )
-        ],
-      ),
-      body: CartItemsWidget(),
+      body: BlocBuilder(
+          bloc: _cartBloc,
+          builder: (context, state) {
+            if (state is CartLoaded) Text("YEAH BABY");
+            return CircularProgressIndicator();
+          }),
     );
   }
-}
-
-class CartItemsWidget extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      initialData: bloc.allItems,
-      stream: bloc.getStream,
-      builder: (context, snapshot) {
-        return snapshot.data["shop items"].length > 0
-            ? shopItemsListBuilder(snapshot)
-            : Center(child: Text("All items in shop have been taken"));
-      },
-    );
-  }
-}
-
-Widget shopItemsListBuilder(snapshot) {
-  return ListView.builder(
-    itemCount: snapshot.data["shop items"].length,
-    itemBuilder: (BuildContext context, i) {
-      final shopList = snapshot.data["shop items"];
-      return ListTile(
-        title: Text(shopList[i]['name']),
-        subtitle: Text("\$${shopList[i]['price']}"),
-        trailing: IconButton(
-          icon: Icon(Icons.add_shopping_cart),
-          onPressed: () {
-            bloc.addToCart(shopList[i]);
-          },
-        ),
-        onTap: () {},
-      );
-    },
-  );
 }

@@ -219,3 +219,21 @@ class ProductCardRouteArgs {
     return 'ProductCardRouteArgs{key: $key, categoryId: $product}';
   }
 }
+
+// class CartRoute extends PageRouteInfo {
+//   CartRoute({
+//     List<PageRouteInfo>? children,
+//   }) : super(
+//           CartRoute.name,
+//           initialChildren: children,
+//         );
+
+//   static const String name = 'CartRoute';
+
+//   static PageInfo page = PageInfo(
+//     name,
+//     builder: (data) {
+//       return CartScreen();
+//     },
+//   );
+// }

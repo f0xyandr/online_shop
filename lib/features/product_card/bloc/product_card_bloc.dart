@@ -19,8 +19,7 @@ class ProductCardBloc extends Bloc<ProductCardEvent, ProductCardState> {
       LoadProductCard event, Emitter<ProductCardState> state) async {
     try {
       if (state is! ProductCardLoaded) emit(ProductCardLoading());
-      final productCard =
-          await productsRepository.getProductCard(event.product.id);
+      final productCard = await productsRepository.getProduct(event.product.id);
       emit(const ProductCardLoaded());
     } catch (e, st) {
       emit(ProductCardLoadingFailure());
