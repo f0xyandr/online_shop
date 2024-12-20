@@ -141,7 +141,7 @@ class _ProductCardScreenState extends State<ProductCardScreen> {
                       ),
                       TextButton(
                           onPressed: () {
-                            // AutoRouter.of(context).push(CartRoute());
+                            AutoRouter.of(context).push(CartRoute());
                           },
                           child: Text("to cart")),
                     ],

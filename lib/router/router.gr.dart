@@ -220,20 +220,38 @@ class ProductCardRouteArgs {
   }
 }
 
-// class CartRoute extends PageRouteInfo {
-//   CartRoute({
-//     List<PageRouteInfo>? children,
-//   }) : super(
-//           CartRoute.name,
-//           initialChildren: children,
-//         );
+class CartRoute extends PageRouteInfo {
+  CartRoute({
+    List<PageRouteInfo>? children,
+  }) : super(
+          CartRoute.name,
+          initialChildren: children,
+        );
 
-//   static const String name = 'CartRoute';
+  static const String name = 'CartRoute';
 
-//   static PageInfo page = PageInfo(
-//     name,
-//     builder: (data) {
-//       return CartScreen();
-//     },
-//   );
-// }
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return CartScreen();
+    },
+  );
+}
+
+class ProductAddRoute extends PageRouteInfo {
+  ProductAddRoute({
+    List<PageRouteInfo>? children,
+  }) : super(
+          ProductAddRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductAddRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return ProductAddScreen();
+    },
+  );
+}

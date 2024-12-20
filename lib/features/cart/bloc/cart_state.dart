@@ -5,7 +5,12 @@ class CartState {}
 
 class CartInitial extends CartState {}
 
-class CartLoaded extends CartState {}
+class CartLoaded extends CartState {
+  List<CartItem> cartItemsList = [];
+  CartLoaded({
+    required this.cartItemsList,
+  });
+}
 
 class CartLoading extends CartState {}
 

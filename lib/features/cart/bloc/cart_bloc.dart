@@ -1,5 +1,6 @@
 // ignore_for_file: unused_catch_stack
 
+import 'package:crypto_coins_list/repositories/products/models/cart_item.dart';
 import 'package:crypto_coins_list/repositories/products/products_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,8 +14,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         if (state is! CartLoaded) {
           emit(CartLoading());
         }
-        final cartList = await repository.getCartList();
-        emit(CartLoaded());
+        final cartItemsList = await repository.getCartList();
+        emit(CartLoaded(cartItemsList: cartItemsList));
       } catch (e, st) {
         CartLoadingFailure(e: e);
       }

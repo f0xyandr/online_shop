@@ -22,7 +22,7 @@ class ProductsRepository implements AbstractProductsRepository {
       final items = response['items'];
       final cartEntries = Map<String, int>.from(items).entries;
       for (var item in cartEntries) {
-        var newProduct = await getProduct(int.parse(item.key));
+        var newProduct = await getProduct((item.key));
         cartList.add(CartItem(product: newProduct, quantity: item.value));
       }
     }
@@ -53,8 +53,11 @@ class ProductsRepository implements AbstractProductsRepository {
         .select()
         .eq("product_id", productId)
         .maybeSingle();
+    debugPrint("$product");
     return Product(
-        name: product!['name'], price: product['price'], id: product['id']);
+        name: product!['name'],
+        price: product['price'],
+        id: product['product_id']);
   }
 
   @override

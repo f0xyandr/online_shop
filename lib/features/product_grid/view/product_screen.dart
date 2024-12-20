@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:crypto_coins_list/features/product_add/product_add.dart';
 import 'package:crypto_coins_list/features/product_grid/bloc/product_bloc.dart';
 import 'package:crypto_coins_list/features/product_grid/widgets/product_tile.dart';
 import 'package:crypto_coins_list/repositories/products/products_repository.dart';
@@ -29,6 +30,14 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: TextButton(
+              onPressed: () {
+                AutoRouter.of(context)
+                    .push(ProductAddScreen() as PageRouteInfo);
+              },
+              child: Text("Добавить товар")),
+        ),
         body: BlocBuilder<ProductBloc, ProductState>(
             bloc: _productBloc,
             builder: (context, state) {

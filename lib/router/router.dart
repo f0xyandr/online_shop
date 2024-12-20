@@ -4,6 +4,7 @@ import 'package:crypto_coins_list/features/cart/cart.dart';
 import 'package:crypto_coins_list/features/categories_list/view/view.dart';
 import 'package:crypto_coins_list/features/crypto_coin/crypto_coin.dart';
 import 'package:crypto_coins_list/features/crypto_list/crypto_list.dart';
+import 'package:crypto_coins_list/features/product_add/product_add.dart';
 import 'package:crypto_coins_list/features/product_grid/view/product_screen.dart';
 import 'package:crypto_coins_list/features/registration/view/registration.dart';
 import 'package:flutter/foundation.dart';
@@ -29,7 +30,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: RegistrationRoute.page, path: '/reg'),
         AutoRoute(page: ProductCardRoute.page, path: '/card'),
         AutoRoute(page: ProductCategoriesRoute.page, path: '/categories'),
-        // AutoRoute(page: CartRoute.page, path: '/cart'),
+        AutoRoute(page: CartRoute.page, path: '/cart'),
+        AutoRoute(page: ProductAddRoute.page, path: '/cart'),
       ];
 }
 
