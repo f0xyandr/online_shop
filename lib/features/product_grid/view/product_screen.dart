@@ -30,14 +30,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: TextButton(
-              onPressed: () {
-                AutoRouter.of(context)
-                    .push(ProductAddScreen() as PageRouteInfo);
-              },
-              child: Text("Добавить товар")),
-        ),
+        appBar: AppBar(),
         body: BlocBuilder<ProductBloc, ProductState>(
             bloc: _productBloc,
             builder: (context, state) {
@@ -59,31 +52,3 @@ class _ProductScreenState extends State<ProductScreen> {
             }));
   }
 }
-// FutureBuilder(
-      //     future: future,
-      //     builder: (context, snapshot) {
-      //       if (!snapshot.hasData) {
-      //         return const Center(child: CircularProgressIndicator());
-      //       }
-      //       final products = snapshot.data!;
-            
-      //       return GridView.builder(
-      //         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-      //             maxCrossAxisExtent: 300,
-      //             mainAxisSpacing: 30,
-      //             crossAxisSpacing: 30),
-      //         itemCount: products.length,
-      //         itemBuilder: ((context, index) {
-      //           final productItem = products[index];
-      //           return ListTile(
-      //             title: Center(
-      //                 child: Column(
-      //               children: [
-      //                 Text(productItem['name']),
-      //               ],
-      //             )),
-      //             tileColor: Colors.white,
-      //           );
-      //         }),
-      //       );
-      //     }),

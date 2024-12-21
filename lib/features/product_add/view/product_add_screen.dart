@@ -68,15 +68,13 @@ class _ProductAddScreenState extends State<ProductAddScreen> {
               AsyncSnapshot<List<ProductCategory>> snapshot) {
             return Scaffold(
               body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextField(
                     controller: name,
                   ),
                   TextField(
                     controller: price,
-                  ),
-                  TextField(
-                    controller: description,
                   ),
                   TextField(
                     controller: description,
@@ -102,9 +100,11 @@ class _ProductAddScreenState extends State<ProductAddScreen> {
                         await Supabase.instance.client.from('products').insert({
                           'name': name.text,
                           'price': int.parse(price.text),
+                          'user': await Supabase
+                              .instance.client.auth.currentUser!.id,
                           'description': description.text,
-                          'category_id': 1,
-                          'created_at': DateTime.now()
+                          'category_id': _selectedCategory!.categoryId,
+                          'created_at': DateTime.now().toString()
                         });
                       },
                       child: Text("data"))

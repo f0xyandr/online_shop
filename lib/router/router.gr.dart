@@ -238,10 +238,9 @@ class CartRoute extends PageRouteInfo {
   );
 }
 
-class ProductAddRoute extends PageRouteInfo {
-  ProductAddRoute({
-    List<PageRouteInfo>? children,
-  }) : super(
+class ProductAddRoute extends PageRouteInfo<void> {
+  const ProductAddRoute({List<PageRouteInfo>? children})
+      : super(
           ProductAddRoute.name,
           initialChildren: children,
         );
@@ -251,7 +250,24 @@ class ProductAddRoute extends PageRouteInfo {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return ProductAddScreen();
+      return const ProductAddScreen();
+    },
+  );
+}
+
+class ProductDeleteRoute extends PageRouteInfo<void> {
+  const ProductDeleteRoute({List<PageRouteInfo>? children})
+      : super(
+          ProductDeleteRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductDeleteRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProductDeleteScreen();
     },
   );
 }
