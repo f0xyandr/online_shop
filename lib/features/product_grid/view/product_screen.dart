@@ -3,6 +3,7 @@ import 'package:crypto_coins_list/features/product_add/product_add.dart';
 import 'package:crypto_coins_list/features/product_grid/bloc/product_bloc.dart';
 import 'package:crypto_coins_list/features/product_grid/widgets/product_tile.dart';
 import 'package:crypto_coins_list/repositories/products/products_repository.dart';
+import 'package:crypto_coins_list/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +31,22 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Row(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    AutoRouter.of(context).push(const ProductAddRoute());
+                  },
+                  child: const Text("add")),
+              TextButton(
+                  onPressed: () {
+                    AutoRouter.of(context).push(const ProductDeleteRoute());
+                  },
+                  child: const Text("delete")),
+            ],
+          ),
+        ),
         body: BlocBuilder<ProductBloc, ProductState>(
             bloc: _productBloc,
             builder: (context, state) {

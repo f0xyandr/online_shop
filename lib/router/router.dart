@@ -27,13 +27,13 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: CryptoListRoute.page, path: '/list'),
         AutoRoute(page: CryptoCoinRoute.page, path: '/coin'),
         AutoRoute(page: ProductRoute.page, path: '/product'),
-        AutoRoute(page: AuthRoute.page, path: '/auth'),
+        AutoRoute(page: AuthRoute.page, path: '/'),
         AutoRoute(page: RegistrationRoute.page, path: '/reg'),
         AutoRoute(page: ProductCardRoute.page, path: '/card'),
         AutoRoute(page: ProductCategoriesRoute.page, path: '/categories'),
         AutoRoute(page: CartRoute.page, path: '/cart'),
         AutoRoute(page: ProductAddRoute.page, path: '/add'),
-        AutoRoute(page: ProductDeleteRoute.page, path: '/'),
+        AutoRoute(page: ProductDeleteRoute.page, path: '/delete'),
       ];
 }
 

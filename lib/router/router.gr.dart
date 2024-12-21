@@ -29,6 +29,41 @@ class AuthRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CartScreen]
+class CartRoute extends PageRouteInfo<CartRouteArgs> {
+  CartRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CartRoute.name,
+          args: CartRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'CartRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args =
+          data.argsAs<CartRouteArgs>(orElse: () => const CartRouteArgs());
+      return CartScreen(key: args.key);
+    },
+  );
+}
+
+class CartRouteArgs {
+  const CartRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CartRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
 /// [CryptoCoinScreen]
 class CryptoCoinRoute extends PageRouteInfo<CryptoCoinRouteArgs> {
   CryptoCoinRoute({
@@ -94,6 +129,71 @@ class CryptoListRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ProductAddScreen]
+class ProductAddRoute extends PageRouteInfo<void> {
+  const ProductAddRoute({List<PageRouteInfo>? children})
+      : super(
+          ProductAddRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductAddRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProductAddScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ProductCardScreen]
+class ProductCardRoute extends PageRouteInfo<ProductCardRouteArgs> {
+  ProductCardRoute({
+    Key? key,
+    required Product product,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ProductCardRoute.name,
+          args: ProductCardRouteArgs(
+            key: key,
+            product: product,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductCardRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ProductCardRouteArgs>();
+      return ProductCardScreen(
+        key: args.key,
+        product: args.product,
+      );
+    },
+  );
+}
+
+class ProductCardRouteArgs {
+  const ProductCardRouteArgs({
+    this.key,
+    required this.product,
+  });
+
+  final Key? key;
+
+  final Product product;
+
+  @override
+  String toString() {
+    return 'ProductCardRouteArgs{key: $key, product: $product}';
+  }
+}
+
+/// generated route for
 /// [ProductCategoriesScreen]
 class ProductCategoriesRoute extends PageRouteInfo<void> {
   const ProductCategoriesRoute({List<PageRouteInfo>? children})
@@ -108,6 +208,25 @@ class ProductCategoriesRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ProductCategoriesScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ProductDeleteScreen]
+class ProductDeleteRoute extends PageRouteInfo<void> {
+  const ProductDeleteRoute({List<PageRouteInfo>? children})
+      : super(
+          ProductDeleteRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductDeleteRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProductDeleteScreen();
     },
   );
 }
@@ -173,101 +292,6 @@ class RegistrationRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const RegistrationScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [ProductScreen]
-class ProductCardRoute extends PageRouteInfo<ProductCardRouteArgs> {
-  ProductCardRoute({
-    Key? key,
-    required Product product,
-    List<PageRouteInfo>? children,
-  }) : super(
-          ProductCardRoute.name,
-          args: ProductCardRouteArgs(
-            key: key,
-            product: product,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'ProductCardRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      final args = data.argsAs<ProductCardRouteArgs>();
-      return ProductCardScreen(product: args.product);
-    },
-  );
-}
-
-class ProductCardRouteArgs {
-  const ProductCardRouteArgs({
-    this.key,
-    required this.product,
-  });
-
-  final Key? key;
-
-  final Product product;
-
-  @override
-  String toString() {
-    return 'ProductCardRouteArgs{key: $key, categoryId: $product}';
-  }
-}
-
-class CartRoute extends PageRouteInfo {
-  CartRoute({
-    List<PageRouteInfo>? children,
-  }) : super(
-          CartRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CartRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return CartScreen();
-    },
-  );
-}
-
-class ProductAddRoute extends PageRouteInfo<void> {
-  const ProductAddRoute({List<PageRouteInfo>? children})
-      : super(
-          ProductAddRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ProductAddRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const ProductAddScreen();
-    },
-  );
-}
-
-class ProductDeleteRoute extends PageRouteInfo<void> {
-  const ProductDeleteRoute({List<PageRouteInfo>? children})
-      : super(
-          ProductDeleteRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ProductDeleteRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const ProductDeleteScreen();
     },
   );
 }
