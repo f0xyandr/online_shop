@@ -19,7 +19,7 @@ final price = TextEditingController();
 final description = TextEditingController();
 
 class _ProductDeleteScreenState extends State<ProductDeleteScreen> {
-  List<Product> _categories = [];
+  List<Product> _products = [];
   Product? _selectedProduct;
 
   @override
@@ -32,7 +32,7 @@ class _ProductDeleteScreenState extends State<ProductDeleteScreen> {
     try {
       final products = await getProductList();
       setState(() {
-        _categories = products;
+        _products = products;
         if (products.isNotEmpty) {
           _selectedProduct =
               products.first; // Выбрать первый элемент по умолчанию
@@ -67,33 +67,38 @@ class _ProductDeleteScreenState extends State<ProductDeleteScreen> {
 
     return Scaffold(
         body: Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DropdownButton<Product>(
-            value: _selectedProduct,
-            items: _categories
-                .map((product) => DropdownMenuItem<Product>(
-                      value: product,
-                      child: Text(product.name),
-                    ))
-                .toList(),
-            onChanged: (value) {
-              setState(() {
-                _selectedProduct = value;
-              });
-              debugPrint("Выбранная категория: ${value?.name}");
-            },
-          ),
-          TextButton(
-              onPressed: () async {
-                await Supabase.instance.client
-                    .from('products')
-                    .delete()
-                    .eq('product_id', _selectedProduct!.id);
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropdownButton<Product>(
+              value: _selectedProduct,
+              items: _products
+                  .map((product) => DropdownMenuItem<Product>(
+                        value: product,
+                        child: Text(product.name),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedProduct = value;
+                });
+                debugPrint("Выбранная категория: ${value?.name}");
               },
-              child: Text("data"))
-        ],
+            ),
+            TextButton(
+                onPressed: () async {
+                  Supabase.instance.client.auth.currentUser!.id is! Null &&
+                          _products.isNotEmpty
+                      ? await Supabase.instance.client
+                          .from('products')
+                          .delete()
+                          .eq('product_id', _selectedProduct!.id)
+                      : debugPrint("Не удалось удалить товар");
+                },
+                child: Text("Удалить"))
+          ],
+        ),
       ),
     ));
   }

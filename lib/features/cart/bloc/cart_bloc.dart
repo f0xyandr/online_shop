@@ -17,7 +17,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         final cartItemsList = await repository.getCartList();
         emit(CartLoaded(cartItemsList: cartItemsList));
       } catch (e, st) {
-        CartLoadingFailure(e: e);
+        emit(CartLoadingFailure(e: e, st: st));
       }
     });
   }

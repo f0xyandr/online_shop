@@ -16,7 +16,6 @@ class CartLoading extends CartState {}
 
 class CartLoadingFailure extends CartState {
   Object e;
-  CartLoadingFailure({
-    required this.e,
-  });
+  Object st;
+  CartLoadingFailure({required this.e, this.st = "stacktrace is empty"});
 }

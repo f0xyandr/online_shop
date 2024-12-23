@@ -48,87 +48,14 @@ class _ProductCardScreenState extends State<ProductCardScreen> {
                         onPressed: () async {
                           final userId =
                               Supabase.instance.client.auth.currentUser!.id;
-                          final usersFromCart = await Supabase.instance.client
-                              .from('cart')
-                              .select('user');
-                          final listFromSupabase = await Supabase
-                              .instance.client
-                              .from('cart')
-                              .select('items')
-                              .eq('user', userId)
-                              .single();
-                          final newValues = listFromSupabase.values.first;
-                          if (newValues is Map<String, int>) {
-                            debugPrint("${newValues.entries}");
-                          }
+
                           try {
-                            final userId =
-                                Supabase.instance.client.auth.currentUser!.id;
-
-                            // Проверяем существующую корзину
-                            var response = await Supabase.instance.client
-                                .from("cart")
-                                .select("items")
-                                .eq("user", userId)
-                                .maybeSingle();
-                            final cartResponse = await Supabase.instance.client
-                                .from("cart")
-                                .select("items")
-                                .eq("user", userId)
-                                .maybeSingle();
-                            final items = cartResponse!['items'];
-                            debugPrint(
-                                "${Map<String, int>.from(items).entries}");
-                            Map<String, dynamic> itemsMap = {};
-
-                            if (response == null) {
-                              // Если корзины нет, создаём новую запись
-                              await Supabase.instance.client
-                                  .from("cart")
-                                  .insert({
-                                'user': userId,
-                                'items': itemsMap,
-                              });
-
-                              // Загружаем только что созданную корзину
-                              response = await Supabase.instance.client
-                                  .from("cart")
-                                  .select("items")
-                                  .eq("user", userId)
-                                  .single();
-                            }
-
-                            if (response['items'] != null) {
-                              itemsMap =
-                                  Map<String, dynamic>.from(response['items']);
-                            }
-
-                            final productId = widget.product.id.toString();
-
-                            // Обновляем количество товара
-                            if (itemsMap.containsKey(productId)) {
-                              itemsMap[productId] += 1;
-                            } else {
-                              itemsMap[productId] = 1;
-                            }
-
-                            // Сохраняем изменения в корзине
-                            await Supabase.instance.client
-                                .from('cart')
-                                .update({'items': itemsMap}).eq('user', userId);
-
-                            debugPrint("Товар успешно добавлен в корзину.");
+                            await Supabase.instance.client.from('cart').insert({
+                              'user': userId,
+                              'product_id': widget.product.id,
+                            });
+                            debugPrint("Товар добавлен в корзину.");
                           } catch (e) {
-                            final userId =
-                                Supabase.instance.client.auth.currentUser!.id;
-
-                            final users = await Supabase.instance.client
-                                .from('cart')
-                                .select('user')
-                                .eq('user', userId);
-                            users.toList();
-                            debugPrint(
-                                "${users.first.values.contains(userId)}");
                             debugPrint("Ошибка при добавлении товара: $e");
                           }
 

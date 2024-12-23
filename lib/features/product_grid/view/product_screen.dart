@@ -36,6 +36,11 @@ class _ProductScreenState extends State<ProductScreen> {
             children: [
               TextButton(
                   onPressed: () {
+                    AutoRouter.of(context).push(CartRoute());
+                  },
+                  child: Text("to cart")),
+              TextButton(
+                  onPressed: () {
                     AutoRouter.of(context).push(const ProductAddRoute());
                   },
                   child: const Text("add")),

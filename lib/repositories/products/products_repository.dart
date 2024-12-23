@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:crypto_coins_list/repositories/products/abstract_products_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -11,26 +12,70 @@ class ProductsRepository implements AbstractProductsRepository {
 
   @override
   Future<List<CartItem>> getCartList() async {
-    final userId = Supabase.instance.client.auth.currentUser!.id;
-    final response = await Supabase.instance.client
-        .from("cart")
-        .select("items")
-        .eq("user", userId)
-        .maybeSingle();
-    List<CartItem> cartList = [];
-    if (response != null) {
-      final items = response['items'];
-      final cartEntries = Map<String, int>.from(items).entries;
-      for (var item in cartEntries) {
-        var newProduct = await getProduct((item.key));
-        cartList.add(CartItem(product: newProduct, quantity: item.value));
+    try {
+      final userId = await Supabase.instance.client.auth.currentUser!.id;
+
+      // Получаем все товары в корзине текущего пользователя
+      final response = await Supabase.instance.client
+          .from('cart')
+          .select('product_id')
+          .eq('user', userId);
+
+      if (response == null || response.isEmpty) {
+        debugPrint("Корзина пуста.");
+        return [];
       }
+
+      // Подсчитываем количество каждого товара
+      final Map<String, int> productCounts = {};
+      for (var item in response) {
+        final productId = item['product_id'].toString();
+        productCounts[productId] = (productCounts[productId] ?? 0) + 1;
+      }
+
+      // Получаем данные о продуктах из таблицы products
+      final productIds = productCounts.keys.toList();
+      final productsResponse = await Supabase.instance.client
+          .from('products')
+          .select()
+          .filter('product_id', 'in', '(${productIds.join(",")})');
+
+      debugPrint("!!!!!!! $productsResponse");
+
+      // Преобразуем в Map для быстрого доступа
+      final productsMap = {
+        for (var p in productsResponse) p['product_id'].toString(): p
+      };
+
+      debugPrint("1111111111 $productsMap");
+
+      // Создаем список CartItem
+      final List<CartItem> cartItems = productCounts.entries.map((entry) {
+        final productData = productsMap[entry.key];
+        debugPrint("^^^^^^^${productsMap[entry.key]}");
+        final product = Product(
+          id: productData!['product_id'],
+          name: productData['name'],
+          price: productData['price'],
+        );
+        return CartItem(product: product, quantity: entry.value);
+      }).toList();
+
+      debugPrint("!!!!!!! $cartItems");
+
+      return cartItems;
+    } catch (e, st) {
+      debugPrint("Ошибка при получении корзины: $e, \n $st");
+      return [];
     }
-    return cartList;
   }
 
   @override
   Future<List<Product>> getProductList(categoryId) async {
+    final productResponse =
+        await Supabase.instance.client.from("products").select("product_id");
+
+    debugPrint("KSFKSMFKMFMKFM ${productResponse}");
     final listFromSupabase = await Supabase.instance.client
         .from("products")
         .select()
