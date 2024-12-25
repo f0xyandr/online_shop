@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:crypto_coins_list/features/auth/view/auth_screen.dart';
 import 'package:crypto_coins_list/features/cart/cart.dart';
 import 'package:crypto_coins_list/features/categories_list/view/view.dart';
+import 'package:crypto_coins_list/features/checkout/view/view.dart';
 import 'package:crypto_coins_list/features/crypto_coin/crypto_coin.dart';
 import 'package:crypto_coins_list/features/crypto_list/crypto_list.dart';
+import 'package:crypto_coins_list/features/home/view/home_screen.dart';
 import 'package:crypto_coins_list/features/product_add/product_add.dart';
 import 'package:crypto_coins_list/features/product_delete/view/product_delete_screen.dart';
 import 'package:crypto_coins_list/features/product_grid/view/product_screen.dart';
@@ -34,6 +36,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: CartRoute.page, path: '/cart'),
         AutoRoute(page: ProductAddRoute.page, path: '/add'),
         AutoRoute(page: ProductDeleteRoute.page, path: '/delete'),
+        AutoRoute(page: CheckoutRoute.page, path: '/checkout'),
+        AutoRoute(page: HomeRoute.page, path: '/home'),
       ];
 }
 

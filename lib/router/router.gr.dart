@@ -295,3 +295,63 @@ class RegistrationRoute extends PageRouteInfo<void> {
     },
   );
 }
+
+class CheckoutRoute extends PageRouteInfo<CheckoutRouteArgs> {
+  CheckoutRoute({
+    Key? key,
+    required List<CartItem> cartItems,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CheckoutRoute.name,
+          args: CheckoutRouteArgs(
+            key: key,
+            cartItems: cartItems,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CheckoutRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<CheckoutRouteArgs>();
+      return CheckoutScreen(
+        cartItems: args.cartItems,
+      );
+    },
+  );
+}
+
+class CheckoutRouteArgs {
+  const CheckoutRouteArgs({
+    this.key,
+    required this.cartItems,
+  });
+
+  final Key? key;
+
+  final List<CartItem> cartItems;
+
+  @override
+  String toString() {
+    return 'ProductCardRouteArgs{key: $key, product: $cartItems}';
+  }
+}
+
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
+      : super(
+          HomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HomeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HomeScreen();
+    },
+  );
+}

@@ -70,6 +70,43 @@ class ProductsRepository implements AbstractProductsRepository {
     }
   }
 
+  Future<void> deleteCartItems(userId, List productIds) async {
+    // Удаление записей из таблицы `cart`, где совпадают `user` и `product_id`
+    await Supabase.instance.client
+        .from('cart')
+        .delete()
+        .match({'user': userId}).filter(
+            'product_id', 'in', '(${productIds.join(",")})');
+    debugPrint("$userId");
+    debugPrint("$productIds");
+  }
+
+  @override
+  Future<List<Product>> fetchRandomProducts() async {
+    try {
+      final response = await Supabase.instance.client
+          .rpc('random_products', params: {'limit_count': 10});
+
+      if (response == null) {
+        throw Exception('Failed to fetch products: Response is null.');
+      }
+
+      final data = response as List<dynamic>;
+
+      debugPrint("$data");
+      return data.map((item) {
+        return Product(
+          id: item['product_id'],
+          name: item['name'],
+          price: item['price'],
+        );
+      }).toList();
+    } catch (e) {
+      debugPrint("Error fetching products: $e");
+      rethrow;
+    }
+  }
+
   @override
   Future<List<Product>> getProductList(categoryId) async {
     final productResponse =

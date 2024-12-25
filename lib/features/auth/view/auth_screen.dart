@@ -42,7 +42,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     final Session? session = res.session;
                     final User? user = res.user;
                     debugPrint("!!!!!!!!!!! ${user?.id}");
-                    AutoRouter.of(context).push(const ProductCategoriesRoute());
+                    AutoRouter.of(context).push(const HomeRoute());
                   }
                 },
                 child: const Text("Войти")),

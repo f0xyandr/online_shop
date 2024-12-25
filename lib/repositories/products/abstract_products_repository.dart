@@ -7,4 +7,5 @@ abstract class AbstractProductsRepository {
   Future<Product> getProduct(productId);
   Future<List<ProductCategory>> getProductCategoryList();
   Future<List<CartItem>> getCartList();
+  Future<List<Product>> fetchRandomProducts();
 }
