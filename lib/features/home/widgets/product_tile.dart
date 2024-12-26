@@ -22,14 +22,20 @@ class ProductTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Expanded(
-                child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-              child: Icon(
-                Icons.broken_image_outlined,
-                size: 40,
+            Expanded(
+              child: ClipRRect(
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(16)),
+                child: Image.network(
+                  '',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.broken_image_outlined,
+                    size: 40,
+                  ),
+                ),
               ),
-            )),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
