@@ -37,7 +37,7 @@ Future<void> main() async {
 
   GetIt.I.registerSingleton(supabase);
   GetIt.I.registerLazySingleton<ProductsRepository>(
-    () => ProductsRepository(supabase: supabase),
+    () => ProductsRepository(dio: Dio()),
   );
 
   final dio = Dio();

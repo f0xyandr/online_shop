@@ -57,14 +57,12 @@ class _CartScreenState extends State<CartScreen> {
                       userId: userId,
                       productIds: thrashList,
                     ));
-                    debugPrint("$thrashList");
 
                     // Очищаем выбор после удаления
                     setState(() {
-                      Future.delayed(Duration(milliseconds: 500), () {
-                        _selectedItems.clear();
-                      });
+                      _selectedItems.clear();
                     });
+                    debugPrint("$thrashList");
                   },
                 ),
               ],

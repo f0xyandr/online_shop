@@ -15,7 +15,9 @@ class ProductCardInitial extends ProductCardState {
 }
 
 class ProductCardLoaded extends ProductCardState {
-  const ProductCardLoaded();
+  const ProductCardLoaded(this.product);
+
+  final Product product;
   @override
   List<Object> get props => [];
 }

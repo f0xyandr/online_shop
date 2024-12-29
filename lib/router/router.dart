@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import '../features/product_card/product_card.dart';
 import '../repositories/crypto_coins/models/models.dart';
 import '../repositories/products/models/models.dart';
+import '../repositories/products/models/product_grid.dart';
 
 part 'router.gr.dart';
 

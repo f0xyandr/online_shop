@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:crypto_coins_list/features/categories_list/view/product_categories_screen.dart';
 import 'package:crypto_coins_list/features/home/bloc/home_bloc.dart';
 import 'package:crypto_coins_list/features/product_grid/widgets/product_tile.dart';
+import 'package:crypto_coins_list/features/profile/profile.dart';
 import 'package:crypto_coins_list/repositories/products/products_repository.dart';
 import 'package:crypto_coins_list/router/router.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _buildHomeContent(),
       const ProductCategoriesScreen(),
       CartScreen(),
-      Center(child: const Text('Profile Screen')),
+      ProfileScreen(),
     ];
   }
 

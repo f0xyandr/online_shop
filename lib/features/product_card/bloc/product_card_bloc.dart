@@ -20,7 +20,7 @@ class ProductCardBloc extends Bloc<ProductCardEvent, ProductCardState> {
     try {
       if (state is! ProductCardLoaded) emit(ProductCardLoading());
       final productCard = await productsRepository.getProduct(event.product.id);
-      emit(const ProductCardLoaded());
+      emit(ProductCardLoaded(productCard));
     } catch (e, st) {
       emit(ProductCardLoadingFailure());
       GetIt.I<Talker>().handle(e, st);

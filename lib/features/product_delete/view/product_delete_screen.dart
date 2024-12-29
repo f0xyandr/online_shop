@@ -66,25 +66,38 @@ class _ProductDeleteScreenState extends State<ProductDeleteScreen> {
     var categoryList = [];
 
     return Scaffold(
-        body: Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            AutoRouter.of(context).maybePop();
+          },
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DropdownButton<Product>(
-              value: _selectedProduct,
-              items: _products
-                  .map((product) => DropdownMenuItem<Product>(
-                        value: product,
-                        child: Text(product.name),
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedProduct = value;
-                });
-                debugPrint("Выбранная категория: ${value?.name}");
-              },
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: DropdownButtonFormField<Product>(
+                value: _selectedProduct,
+                items: _products
+                    .map((product) => DropdownMenuItem<Product>(
+                          value: product,
+                          child: Text(product.name),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedProduct = value;
+                  });
+                  debugPrint("Выбранная категория: ${value?.name}");
+                },
+              ),
             ),
             TextButton(
                 onPressed: () async {
@@ -100,6 +113,6 @@ class _ProductDeleteScreenState extends State<ProductDeleteScreen> {
           ],
         ),
       ),
-    ));
+    );
   }
 }

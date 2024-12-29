@@ -22,6 +22,9 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   final _productBloc = ProductBloc(GetIt.I<ProductsRepository>());
 
+  final _minValue = TextEditingController();
+  final _maxValue = TextEditingController();
+
   @override
   void initState() {
     _productBloc.add(LoadProduct(categoryId: widget.categoryId));
@@ -32,25 +35,69 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Row(
-            children: [
-              TextButton(
-                  onPressed: () {
-                    AutoRouter.of(context).push(CartRoute());
-                  },
-                  child: Text("to cart")),
-              TextButton(
-                  onPressed: () {
-                    AutoRouter.of(context).push(const ProductAddRoute());
-                  },
-                  child: const Text("add")),
-              TextButton(
-                  onPressed: () {
-                    AutoRouter.of(context).push(const ProductDeleteRoute());
-                  },
-                  child: const Text("delete")),
-            ],
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              AutoRouter.of(context).maybePop();
+            },
           ),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  showDialog<void>(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Заголовок диалога'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              TextFormField(
+                                controller: _minValue,
+                                decoration: InputDecoration(
+                                  labelText: 'Name',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                              TextFormField(
+                                controller: _maxValue,
+                                decoration: InputDecoration(
+                                  labelText: 'Name',
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _productBloc.add(LoadFilteredProduct(
+                                        minPrice: double.parse(_minValue.text),
+                                        maxPrice:
+                                            double.parse(_maxValue.text)));
+                                  });
+                                },
+                                child: Text(""),
+                              )
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('Закрыть'),
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Закрывает диалог
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: Text("data"))
+          ],
         ),
         body: BlocBuilder<ProductBloc, ProductState>(
             bloc: _productBloc,

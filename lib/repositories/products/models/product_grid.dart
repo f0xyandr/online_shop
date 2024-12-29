@@ -1,9 +1,9 @@
-class Product {
+class ProductGrid {
   final String name;
   final int price;
   final int id;
   final int? discount;
-  final Map? specification;
+
   final String? imageUrl;
   final String? description;
 
@@ -11,8 +11,7 @@ class Product {
     return price - (price * (discount ?? 0) / 100);
   }
 
-  Product({
-    this.specification,
+  ProductGrid({
     required this.name,
     required this.price,
     required this.id,
@@ -21,9 +20,8 @@ class Product {
     this.description,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      specification: json['specification'],
+  factory ProductGrid.fromJson(Map<String, dynamic> json) {
+    return ProductGrid(
       id: json['id'],
       name: json['name'],
       price: json['price'],

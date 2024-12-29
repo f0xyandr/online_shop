@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:crypto_coins_list/repositories/products/abstract_products_repository.dart';
 import 'package:crypto_coins_list/repositories/products/models/product.dart';
 import 'package:equatable/equatable.dart';

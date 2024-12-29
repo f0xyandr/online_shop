@@ -8,4 +8,7 @@ abstract class AbstractProductsRepository {
   Future<List<ProductCategory>> getProductCategoryList();
   Future<List<CartItem>> getCartList();
   Future<List<Product>> fetchRandomProducts();
+
+  Future<String> getPayPalAccessToken({String clientId, String secret});
+  Future<void> createTestPayment(String accessToken, double amount);
 }

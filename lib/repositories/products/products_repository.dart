@@ -1,14 +1,100 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:crypto_coins_list/repositories/products/abstract_products_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'models/models.dart';
 
 class ProductsRepository implements AbstractProductsRepository {
-  final SupabaseClient supabase;
+  ProductsRepository({required this.dio});
 
-  ProductsRepository({required this.supabase});
+  Dio dio;
+
+// Пример создания тестового платежа
+
+  Future<String> getPayPalAccessToken(
+      {String clientId =
+          'AQzblLGRa8VdNITjCzpB9VxJsmtHGAgus126f8M-wYn5moPPXhu_ZMHY2bvHxInuVpda-RW-r_bvo7X5',
+      String secret =
+          'EKNYCxBYOQBjsd3Rm9qMJIBaC9wu0dhoU9xQN3AFThmhdhJP0ddw1i5haAvA5hsx7ZpQS16Y8BMHcZFY'}) async {
+    final response = await dio.post(
+      'https://api.sandbox.paypal.com/v1/oauth2/token',
+      options: Options(
+        headers: {
+          'Authorization':
+              'Basic ' + base64Encode(utf8.encode('$clientId:$secret')),
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      ),
+      data: {'grant_type': 'client_credentials'},
+    );
+
+    if (response.statusCode == 200) {
+      return response.data['access_token'];
+    } else {
+      throw Exception('Failed to get access token: ${response.data}');
+    }
+  }
+
+  Future<void> createTestPayment(String accessToken, double amount) async {
+    debugPrint("\n\n\n Access Token: $accessToken \n Amount: $amount\n\n\n");
+
+    final data = {
+      'intent': 'sale',
+      'payer': {
+        'payment_method': 'paypal',
+      },
+      'transactions': [
+        {
+          'amount': {
+            'total': amount.toStringAsFixed(
+                2), // Убедитесь, что это строка с двумя знаками после запятой
+
+            'currency': 'USD',
+          },
+          'description': 'Тестовый платеж',
+        },
+      ],
+      'redirect_urls': {
+        'return_url': 'https://example.com/return',
+        'cancel_url':
+            'https://example.com/cancel', // Убедитесь, что это корректный URL
+      },
+    };
+
+    debugPrint('Request data: ${jsonEncode(data)}'); // Логируйте данные запроса
+
+    try {
+      final response = await dio.post(
+        'https://api.sandbox.paypal.com/v1/payments/payment',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $accessToken',
+            'Content-Type': 'application/json',
+          },
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 201) {
+        debugPrint('Payment created successfully: ${response.data}');
+      } else {
+        debugPrint('Failed to create payment: ${response.data}');
+      }
+    } catch (e) {
+      if (e is DioError) {
+        debugPrint(
+            'Error creating payment: ${e.response?.statusCode} - ${e.response?.data}');
+      } else {
+        debugPrint('Unexpected error: $e');
+      }
+    }
+  }
 
   @override
   Future<List<CartItem>> getCartList() async {
@@ -99,6 +185,7 @@ class ProductsRepository implements AbstractProductsRepository {
           id: item['product_id'],
           name: item['name'],
           price: item['price'],
+          discount: item['discount_percent'],
         );
       }).toList();
     } catch (e) {
@@ -122,8 +209,10 @@ class ProductsRepository implements AbstractProductsRepository {
       String name = productMap['name'];
       int price = productMap['price'];
       int id = productMap['product_id'];
+      int discount = productMap['discount_percent'];
 
-      productList.add(Product(name: name, price: price, id: id));
+      productList
+          .add(Product(name: name, price: price, id: id, discount: discount));
     }
     return productList;
   }
@@ -135,11 +224,23 @@ class ProductsRepository implements AbstractProductsRepository {
         .select()
         .eq("product_id", productId)
         .maybeSingle();
-    debugPrint("$product");
+
+    if (product == null) {
+      throw Exception('Продукт с ID $productId не найден.');
+    }
+
     return Product(
-        name: product!['name'],
-        price: product['price'],
-        id: product['product_id']);
+      name: product['name'],
+      price: product['price'],
+      id: product['product_id'],
+      discount: product['discount_percent'],
+      imageUrl: product['image_url'] ??
+          "https://prgbgbhgwpzlvtfvggsj.supabase.co/storage/v1/object/public/images/morioh.jpg",
+      description: product['description'],
+      specification: product['specification'] != null
+          ? Map<String, dynamic>.from(product['specification'])
+          : null,
+    );
   }
 
   @override
